@@ -7,7 +7,7 @@ import css from 'angular-css';
 import ngToast from 'ng-toast';
 import ngSanitize from 'angular-sanitize';
 import animate from 'angular-animate';
-
+import youtube from 'angular-youtube-embed';
 
 import 'ng-toast/dist/ngToast.min.js';
 import 'jquery/dist/jquery.js';
@@ -28,6 +28,7 @@ let app = angular.module('meanApp', [
   "ngToast",
   ngSanitize,
   animate
+  youtube
 ]);
 
 app.constant('CONSTANTS', config.constants);
