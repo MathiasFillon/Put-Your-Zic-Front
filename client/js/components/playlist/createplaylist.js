@@ -1,4 +1,4 @@
-npm  'use strict';
+'use strict';
 
 import template from './createPlaylist.html';
 

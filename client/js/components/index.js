@@ -9,7 +9,7 @@ import loginComponent from './login/login';
 import signinComponent from './login/signin';
 import signupComponent from './login/signup';
 import acceuilComponent from './acceuil/acceuil';
-
+import createPlaylistComponent from './playlist/createPlaylist'
 
 export default angular.module('appComponents', [])
 
@@ -20,4 +20,5 @@ export default angular.module('appComponents', [])
   .component('signin', signinComponent)
   .component('signup', signupComponent)
   .component('acceuil', acceuilComponent)
+  .component('createPlaylistComponent', createPlaylistComponent)
   .name;
