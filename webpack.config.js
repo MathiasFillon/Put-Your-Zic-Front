@@ -88,14 +88,14 @@ const clientConfig = {
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [{
-            loader: 'css-loader',
-            options: {
-              minimize: PRODUCTION
-            }
-          },
-          {
-            loader: 'sass-loader'
+          loader: 'css-loader',
+          options: {
+            minimize: PRODUCTION
           }
+        },
+        {
+          loader: 'sass-loader'
+        }
         ]
       })
     }, {
@@ -125,6 +125,11 @@ const clientConfig = {
       minChunks: ({
         resource
       }) => /node_modules/.test(resource)
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
     })
   ].filter(e => e),
   devtool: PRODUCTION ? 'source-map' : 'eval-source-map'
