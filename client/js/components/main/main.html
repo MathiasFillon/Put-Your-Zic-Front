@@ -12,13 +12,7 @@
     <md-nav-item md-nav-sref="home" sref-opts="{reload:true, notify:true}" name="home">Home</md-nav-item>
     <md-nav-item md-nav-sref="users" sref-opts="{reload:true, notify:true}" name="users" ng-if="$ctrl.user">Users</md-nav-item>
   </md-nav-bar>-->
-  <div class="panel panel-default" ng-if="$ctrl.user">
-    <div class="panel-heading">CA Commerciaux</div>
-    <div class="panel-body">
-      <canvas id="bar" class="chart chart-bar" chart-data="$ctrl.data" chart-labels="$ctrl.labels" chart-series="$ctrl.series">
-      </canvas>
-    </div>
-  </div>
+ 
   <md-content layout-padding>
     <div class="ext-content">
       <ui-view></ui-view>
