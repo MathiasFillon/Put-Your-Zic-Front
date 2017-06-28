@@ -5,7 +5,7 @@ import uiRouter from 'angular-ui-router';
 import messages from 'angular-messages';
 import material from 'angular-material';
 import css from 'angular-css';
-
+import youtube from 'angular-youtube-embed';
 
 
 
@@ -27,6 +27,7 @@ let app = angular.module('meanApp', [
   css,
   components,
   services,
+  youtube
 ]);
 
 app.constant('CONSTANTS', config.constants);

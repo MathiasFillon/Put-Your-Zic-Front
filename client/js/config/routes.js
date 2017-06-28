@@ -11,6 +11,18 @@ export default function ($stateProvider, $urlRouterProvider) {
       component: 'home'
     })
     .state({
+      name: 'profile',
+      url: '/profile',
+      publicRoute: false,
+      component: 'profile'
+    })
+    .state({
+      name: 'playlist',
+      url: '/playlist',
+      publicRoute: false,
+      component: 'playlist'
+    })
+    .state({
       name: 'users',
       url: '/users',
       component: 'users'
