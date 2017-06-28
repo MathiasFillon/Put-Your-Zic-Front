@@ -8,6 +8,8 @@ import usersComponent from './users/users';
 import loginComponent from './login/login';
 import signinComponent from './login/signin';
 import signupComponent from './login/signup';
+import acceuilComponent from './acceuil/acceuil';
+
 
 export default angular.module('appComponents', [])
 
@@ -17,4 +19,5 @@ export default angular.module('appComponents', [])
   .component('login', loginComponent)
   .component('signin', signinComponent)
   .component('signup', signupComponent)
+  .component('acceuil', acceuilComponent)
   .name;

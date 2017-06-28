@@ -5,10 +5,13 @@ import uiRouter from 'angular-ui-router';
 import messages from 'angular-messages';
 import material from 'angular-material';
 import css from 'angular-css';
-import angularChart from 'angular-chart.js';
 
 
 
+
+import 'jquery/dist/jquery.js';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import 'angular-material/angular-material.css';
 import 'mdi/css/materialdesignicons.css';
 import '../css/index.scss';
@@ -24,7 +27,6 @@ let app = angular.module('meanApp', [
   css,
   components,
   services,
-  angularChart
 ]);
 
 app.constant('CONSTANTS', config.constants);
