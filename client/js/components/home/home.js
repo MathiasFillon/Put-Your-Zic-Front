@@ -9,6 +9,8 @@ export default {
   controller: function () {
     'ngInject';
 
-    this.$onInit = () => {};
+    this.$onInit = () => {
+   
+    };
   }
 }

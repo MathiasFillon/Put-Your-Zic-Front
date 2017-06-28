@@ -1,19 +1,13 @@
 'use strict';
 
 import angular from 'angular';
-import resource from 'angular-resource';
-import localStorage from 'angular-local-storage';
+import cookies from 'angular-cookies';
 
 import usersService from './users';
 import authService from './auth';
 
-let services = angular.module('appServices', [
-  localStorage,
-  resource
-]);
+export default angular.module('appServices', ['ngCookies'])
 
-services
-  .factory('UsersService', usersService)
-  .service('AuthService', authService);
-
-export default services.name;
+  .service('UsersService', usersService)
+  .service('AuthService', authService)
+  .name;

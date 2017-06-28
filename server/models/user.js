@@ -9,9 +9,6 @@ import bcrypt from 'bcryptjs';
 // For password encryption
 const SALT_WORK_FACTOR = 10;
 
-/**
- * Build the user schema
- */
 let UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -36,17 +33,15 @@ let UserSchema = new mongoose.Schema({
     select: false
   },
   facebook: {
-    id: String,
-    token: String,
+    id: String, 
+    token: String, 
     photo: String
   }
 }, {
   timestamps: true
 });
 
-/**
- * Sanitize the user fields before creating object in db
- */
+// Sanitize the user fields before storing in db
 UserSchema.pre('save', function (next) {
 
   if (this.isModified('firstName')) {
@@ -58,23 +53,30 @@ UserSchema.pre('save', function (next) {
   }
 
   // Only hash the password if it has been modified (or is new)
-  if (this.isModified('password')) {
-    bcrypt.hash(this.password, SALT_WORK_FACTOR).then((hash) => {
-      // Override the cleartext password with the hashed one
-      this.password = hash;
-      next();
-    })
-    .catch((err) => {
-      next(err);
-    });
-  } else {
+  if (!this.isModified('password')) {
     next();
+  } else {
+    // Generate a salt
+    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+      if (err) {
+        next(err);
+      } else {
+        // Hash the password using our new salt
+        bcrypt.hash(this.password, salt, (err, hash) => {
+          if (err) {
+            next(err);
+          } else {
+            // Override the cleartext password with the hashed one
+            this.password = hash;
+            next();
+          }
+        });
+      }
+    });
   }
 });
 
-/**
- * Sanitize the modified user fields before storing in db
- */
+// Sanitize the modified user fields before storing in db
 UserSchema.pre('update', function (next) {
 
   var values = this._update.$set;
@@ -87,59 +89,61 @@ UserSchema.pre('update', function (next) {
     values.lastName = values.lastName.toUpperCase();
   }
 
-  if (values.password) {
-    bcrypt.hash(values.password, SALT_WORK_FACTOR).then((hash) => {
-      // Override the cleartext password with the hashed one
-      values.password = hash;
-      next();
-    })
-    .catch((err) => {
-      next(err);
-    });
-  } else {
+  if (!values.password) {
     next();
+  } else {
+    // Generate a salt
+    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+      if (err) {
+        next(err);
+      } else {
+        // Hash the password using our new salt
+        bcrypt.hash(values.password, salt, (err, hash) => {
+          if (err) {
+            next(err);
+          } else {
+            // Override the cleartext password with the hashed one
+            values.password = hash;
+            next();
+          }
+        });
+      }
+    });
   }
 });
 
-/**
- * Compare the given password with the db encrypted one
- */
+// Compare the given password with the db encrypted one 
 UserSchema.methods.validPassword = function (candidatePassword, next) {
-  bcrypt.compare(candidatePassword, this.password).then((match) => {
-    next(null, match);
-  })
-  .catch((err) => {
-    next(err);
+  bcrypt.compare(candidatePassword, this.password, function (err, match) {
+    if (err) {
+      next(err);
+    } else {
+      next(null, match);
+    }
   });
 };
 
-/**
- * Build an encrypted token from the current user
- */
+// Build an encrypted token from the current used
 UserSchema.methods.generateJWT = function () {
 
   let env = settings();
 
   return jwt.sign({
-      _id: this._id,
-      email: this.email,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      isAdmin: this.isAdmin
-    },
-    env.jwtSecret, {
-      expiresIn: '1h'
-    });
+    _id: this._id,
+    email: this.email,
+    firstName: this.firstName,
+    lastName: this.lastName,
+    isAdmin: this.isAdmin
+  }, 
+  env.jwtSecret,
+  {
+    expiresIn: '7d'
+  });
 };
 
-/**
- * Return the full user name
- */
+// Return the full user name
 UserSchema.methods.fullName = function () {
   return this.firstName + ' ' + this.lastName;
 };
 
-/**
- * Create and export the user model from the built user schema
- */
 export default mongoose.model('User', UserSchema);

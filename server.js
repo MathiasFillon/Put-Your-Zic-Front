@@ -41,15 +41,20 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 // Set default static files path
-app.use(express.static(env.publicPath, {
-  etag: false
-}));
+app.use(express.static(env.publicPath));
 
 // Initialize passport used by express for authentication
-app.use(passport.initialize());
+app.use(passport.initialize())
 
 // Set web service routes
-app.use('/api', router(passport));
+app.use('/api', router(app, passport));
+
+// Default home page
+// app.get('/', function (req, res) {
+//   res.sendFile('index.html', {
+//     root: env.publicPath
+//   });
+// });
 
 // Unknown route handler
 app.use((req, res) => {
@@ -57,25 +62,23 @@ app.use((req, res) => {
 });
 
 // Errors handler
-app.use((err, req, res, next) => {
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(err.status || 500).send(err);
 });
 
 // Connect to database
-mongoose.connect(env.db, (err) => {
-
-  if (err) {
-    throw err;
-  }
-
+mongoose.connect(env.db, function (err) {
+  
+  if (err) throw err;
+  
   debug('Successfully connected to MongoDB');
 
   // Get port from environment and store in Express.
   const port = parseInt(process.env.PORT, 10) || 8080;
-
+  
   // Finally, create the HTTP server
-  app.listen(port, () => {
+  app.listen(port, function () {
     debug('Listening on port ' + port);
   });
 });

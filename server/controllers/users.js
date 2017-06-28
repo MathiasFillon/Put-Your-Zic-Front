@@ -2,59 +2,37 @@
 
 import User from '../models/user';
 
-/**
- * The user routes controller object class
- */
 class UsersController {
 
-  /**
-   * Get all users filtered with queries string
-   * @param {object} req The request
-   * @param {object} res The response
-   * @param {requestCallback} next The next middleware function
-   * @param {object} currentUser The requester
-   */
+  // Get all users filtered with queries string
   find(req, res, next, currentUser) {
     if (currentUser && currentUser.isAdmin) {
       User.find(req.query, (err, users) => {
-        if (err) {
+        if (err)
           next(err);
-        } else {
+        else
           res.json(users);
-        }
       });
     } else {
-      errorNotAdmin(res);
+      res.status("401").send("Not authorized, your are not admin!");
     }
   }
 
-  /**
-   * Get a unique user by request param, this param need to be id
-   * @param {object} req The request
-   * @param {object} res The response
-   * @param {requestCallback} next The next middleware function
-   * @param {object} currentUser The requester
-   */
+  // Get a unique user by request param, this param need to be id
   findById(req, res, next, currentUser) {
     if (currentUser && (req.params.id == currentUser._id || currentUser.isAdmin)) {
       User.findById(req.params.id, (err, user) => {
-        if (err) {
+        if (err)
           next(err);
-        } else {
+        else
           res.json(user);
-        }
       });
     } else {
-      errorNotAdmin(res);
+      res.status("401").send("Not authorized, your are not admin!");
     }
   }
 
-  /**
-   * Create a user with data from body request (req.body)
-   * @param {object} req The request
-   * @param {object} res The response
-   * @param {requestCallback} next The next middleware function
-   */
+  // Create a user with data from body request (req.body)
   create(req, res, next) {
     User.create(req.body, (err, user) => {
       if (err) {
@@ -67,40 +45,12 @@ class UsersController {
     });
   }
 
-  /**
-   * Update a user by request param, this param need to be id with data from body request (req.body)
-   * @param {object} req The request
-   * @param {object} res The response
-   * @param {requestCallback} next The next middleware function
-   * @param {object} currentUser The requester
-   */
-  update(req, res, next, currentUser) {
+  // Update a user by request param, this param need to be id with data from body request (req.body)
+  update(req, res, next, user) {
     if (currentUser && (req.params.id == currentUser._id || currentUser.isAdmin)) {
-      User.findOneAndUpdate(req.params.id, req.body, {
-        new: true,
-      },
-      (err, user) => {
-        if (err) {
-          next(err);
-        } else {
-          res.json(user);
-        }
-      });
-    } else {
-      errorNotAdmin(res);
-    }
-  }
-
-  /**
-   * Delete a unique user by request param, this param need to be id
-   * @param {object} req The request
-   * @param {object} res The response
-   * @param {requestCallback} next The next middleware function
-   * @param {object} currentUser The requester
-   */
-  delete(req, res, next, currentUser) {
-    if (currentUser && currentUser.isAdmin) {
-      User.findByIdAndRemove(req.params.id, (err) => {
+      User.update({
+        _id: req.params.id
+      }, req.body, (err, status) => {
         if (err) {
           next(err);
         } else {
@@ -108,17 +58,21 @@ class UsersController {
         }
       });
     } else {
-      errorNotAdmin(res);
+      res.status("401").send("Not authorized, your are not admin!");
     }
   }
 
-  /**
-   * Send a 401 error response
-   * @param {object} res The response
-   */
-  errorNotAdmin(res) {
-    res.status('401').send('Not authorized, not admin.');
+  // Delete a unique user by request param, this param need to be id
+  delete(req, res, next, currentUser) {
+    if (currentUser && currentUser.isAdmin) {
+      User.findByIdAndRemove(req.params.id, (err) => {
+        res.sendStatus(200);
+      });
+    } else {
+      res.status("401").send("Not authorized, your are not admin!");
+    }
   }
+
 }
 
-export default UsersController;
+export default UsersController

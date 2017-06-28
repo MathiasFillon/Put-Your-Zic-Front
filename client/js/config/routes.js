@@ -4,12 +4,14 @@ export default function ($stateProvider, $urlRouterProvider) {
   'ngInject';
 
   $stateProvider
-    .state('home', {
+    .state({
+      name: 'home',
       url: '/home',
-      publicRoute: true,
+      publicRoute: false,
       component: 'home'
     })
-    .state('users', {
+    .state({
+      name: 'users',
       url: '/users',
       component: 'users'
     })
@@ -30,23 +32,20 @@ export default function ($stateProvider, $urlRouterProvider) {
     })
     .state('callback', {
       url: '/auth/callback/:token',
-      publicRoute: true,
+      publicRoute: true,      
       params: {
         code: null,
         status: null,
         message: null
       },
-      controller: function (AuthService, $stateParams, $state, $mdToast) {
+      controller: function (AuthService, $stateParams, $state) {
         'ngInject';
 
         if ($stateParams.token) {
-          AuthService.setToken($stateParams.token).then(() => {
+          AuthService.setToken($stateParams.token).then((user) => {
             $state.go('home');
           })
           .catch((err) => {
-            let message = err.data ? err.data.message || err.data : err;
-            let toastContent = `Error: ${message} !`;
-            $mdToast.showSimple(toastContent);
             $state.go('home');
           });
         } else {

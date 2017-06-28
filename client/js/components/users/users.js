@@ -6,9 +6,10 @@ export default {
 
   template: template,
 
-  controller: function () {
+  controller: function (UsersService) {
     'ngInject';
 
-    this.$onInit = () => {};
+    this.$onInit = () => {
+    };
   }
 }

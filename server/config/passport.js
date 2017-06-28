@@ -7,32 +7,42 @@ import passport from 'passport';
 import User from '../models/user';
 import settings from '../utilities/settings';
 
-/**
- * The Passport authentication module initialization
- */
-export default function () {
+export default () => {
 
   let env = settings();
 
-  /**
-   * Initialize Passport LocalStrategy
-   */
+  // Take a look at: http://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
+  // and https://howtonode.org/understanding-process-next-tick
+  // and https://www.sitepoint.com/local-authentication-using-passport-node-js/
+  // and https://www.sitepoint.com/passport-authentication-for-nodejs-applications/
+
+  // Used to serialize the user for the request session
+  // We are using id here, but we could use any "unique" information like "email"
+  passport.serializeUser(function (user, done) {
+    done(null, user.id);
+  })
+
+  // Used to deserialize user from the request session:
+  passport.deserializeUser(function (id, done) {
+    USER.findById(id, function (err, user) {
+      done(err, user);
+    })
+  })
+
+  // Initialize LocalStrategy
   passport.use(new Local.Strategy({
-
-    usernameField: 'email',
-    passwordField: 'password'
-
+    usernameField: 'email'
   }, (email, password, done) => {
     // Ensure that this will be executed asynchronously
-    process.nextTick(() => {
-
+    process.nextTick(function () {
+      
       User.findOne({
           email: email
         })
-        .select('+password')
-        .exec((err, user) => {
+        .select("+password")
+        .exec(function (err, user) {
           if (err) {
-            return done(err);
+            return done(err)
           }
           if (!user) {
             return done(null, false, {
@@ -40,9 +50,11 @@ export default function () {
             });
           }
           // We are checking if password is the same as the one stored and encrypted in db
-          user.validPassword(password, (err, match) => {
+          user.validPassword(password, function (err, match) {
             if (err || !match) {
-              return done(err || 'Incorrect user email or password', false);
+              return done(null, false, {
+                message: 'Incorrect email or password.'
+              });
             }
             return done(null, user);
           });
@@ -50,49 +62,40 @@ export default function () {
     });
   }));
 
-  /**
-   * Initialize the Passport FacebookStrategy
-   */
+  // Initialize FacebookStrategy
   passport.use(new Facebook({
-
-    clientID: env.facebookAuth.clientID || '0',
-    clientSecret: env.facebookAuth.clientSecret || '0',
+    clientID: env.facebookAuth.clientID,
+    clientSecret: env.facebookAuth.clientSecret,
     callbackURL: env.facebookAuth.callbackURL,
     profileFields: ['id', 'name', 'photos', 'emails']
-
   }, (token, refreshToken, profile, done) => {
     // Ensure that this will be executed asynchronously
-    process.nextTick(() => {
+    process.nextTick(function () {
 
       User.findOne({
-        email: profile.emails[0].value
+        'email': profile.emails[0].value
       }, (err, user) => {
 
         if (err) {
-          // db error ?
           return done(err);
         }
 
         if (!user) {
-          // No user found matching the given email address
-          // Create a new user
           user = new User();
           user.email = profile.emails[0].value || '';
           user.firstName = profile.name.givenName;
           user.lastName = profile.name.familyName;
         } else if (user.facebook.id) {
-          // User found and Facebook credentials already saved
           return done(null, user);
         }
 
-        // Save Facebook credentials and avatar url
         user.facebook.token = token;
         user.facebook.id = profile.id;
         user.facebook.photo = profile.photos[0].value || '';
 
-        // Create or update the user
-        User.findByIdAndUpdate(user._id, user, {
-          new: true,
+        User.update({
+          _id: user._id
+        }, user, {
           upsert: true,
           setDefaultsOnInsert: true
         }, (err, newUser) => {

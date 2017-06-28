@@ -2,20 +2,17 @@
 
 import config from '../config/env';
 
-let RUN_MODE = process.env.NODE_ENV;
+const RUN_MODE = process.env.NODE_ENV || 'development';
 
-/**
- * Export the main app settings
- */
-export default function() {
+function settings() {
 
   let env = {};
 
-  if (RUN_MODE === 'production') {
-    env = config.production;
-  } else {
-    RUN_MODE = 'development';
-    env = config.development;
+  switch (RUN_MODE) {
+    case 'development':
+    case 'production':
+      env = config[RUN_MODE];
+      break;
   }
 
   env.publicPath = 'dist/public';
@@ -24,3 +21,5 @@ export default function() {
 
   return env;
 }
+
+export default settings;

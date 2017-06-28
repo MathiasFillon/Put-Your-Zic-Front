@@ -3,7 +3,6 @@
 export default {
   authEvent: 'AUTH',
   authUrl: '/api/auth',
-  usersUrl: '/api/users',
-  authToken: 'mean-token',
+  authCookie: 'mean-token',
   serverFacebookUrl: '/api/auth/facebook'
-};
+}
