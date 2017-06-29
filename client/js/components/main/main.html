@@ -17,10 +17,10 @@
         </form>
         <div class="rigth">
           <ul class="nav navbar-nav navbar-right">
-            <li><a ui-sref="createPlaylist">playlist</a></li>
-            <li><a href="#">My profile</a></li>
+            <li><a ui-sref="createPlaylist">Create playlist</a></li>
+            <li><a ui-sref="profile">My profile</a></li>
             <li>
-              <a ui-sref="login" ng-if="!$ctrl.user">sign in</a>
+              <a ui-sref="login.signin" ng-if="!$ctrl.user">sign in</a>
               <a href="" ng-click="$ctrl.logout()" ng-if="$ctrl.user">Disconnect</a>
             </li>
           </ul>
