@@ -1,0 +1,24 @@
+<div class="container">
+  <label>Créer votre playlist</label>
+  <div> Quelques conseils :-) </div>
+    <ul>
+      <li>créer un titre évocateur pour aider les membres de la communauté à vous trouver</li>
+      <li>détailler en quelques mots l'objet et le princippe de fonctionnement de votre playlist. Par exemple un titre par jour et par personnes, seulement de la musique tibétaine</li>
+         </ul>
+ 
+ 
+  <div id="title">
+   
+    <div>
+      <h1>Titre de votre playlist</h1>
+      <input ng-model="$ctrl.title" type="text" class="form-control" id="" placeholder="titre">
+    </div>
+
+    <div>
+      <h1>Thème de votre playlist</h1>
+      <textarea ng-model="$ctrl.theme" type="text" class="form-control" id="textQuestion" placeholder="thème de votre playlist"></textarea>
+    </div>
+   
+    <button ui-sref="home">Home</button>
+    <button ng-click="$ctrl.submit($ctrl.playlist)">valider</button>
+  </div>
