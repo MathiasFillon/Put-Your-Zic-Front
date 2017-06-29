@@ -3,17 +3,16 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import messages from 'angular-messages';
-import material from 'angular-material';
 import css from 'angular-css';
+import ngToast from 'ng-toast';
+import ngSanitize from 'angular-sanitize';
+import animate from 'angular-animate';
 
 
-
-
+import 'ng-toast/dist/ngToast.min.js';
 import 'jquery/dist/jquery.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import 'angular-material/angular-material.css';
-import 'mdi/css/materialdesignicons.css';
 import '../css/index.scss';
 
 import components from './components';
@@ -22,11 +21,13 @@ import config from './config';
 
 let app = angular.module('meanApp', [
   uiRouter,
-  material,
   messages,
   css,
   components,
   services,
+  "ngToast",
+  ngSanitize,
+  animate
 ]);
 
 app.constant('CONSTANTS', config.constants);

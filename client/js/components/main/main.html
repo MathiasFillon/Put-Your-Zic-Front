@@ -1,60 +1,34 @@
-<!--<md-toolbar id="mainToolbar">
-  <div class="md-toolbar-tools">
-    <a ui-sref="home"><img src="../../../images/angularjs.png" /></a>
-    <h3>MEAN sample app</h3>
-    <span flex></span>
-    <a ui-sref="login.signin" ng-if="!$ctrl.user">Sign in</a>
-    <a href="" ng-click="$ctrl.logout()" ng-if="$ctrl.user">Disconnect</a>
-  </div>
-</md-toolbar>
-<md-content class="md-padding">
-
-
-
-
-
-
-</md-content>-->
-
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-        aria-expanded="false">
+<div class="containe-fluid">
+  <nav class="navbar navbar-default">
+    <div class="interne container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
       </button>
-      <a class="navbar-brand" href="#">home</a>
-    </div>
+        <a class="logo navbar-brand" href="#">home</a>
+      </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a ui-sref="createPlaylist">playlist</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-        </li>
-      </ul>
-      <form class="search navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="search navbar-form navbar-left">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button ui-sref="login.signup" type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <div class="rigth">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a ui-sref="createPlaylist">playlist</a></li>
+            <li><a href="#">My profile</a></li>
+            <li>
+              <a ui-sref="login" ng-if="!$ctrl.user">sign in</a>
+              <a href="" ng-click="$ctrl.logout()" ng-if="$ctrl.user">Disconnect</a>
+            </li>
+          </ul>
         </div>
-        <button ui-sref="login.signup" type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">My profile</a></li>
-        <li class="dropdown">
-          <a ui-sref="login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">sign in</a>
-          <!--<a ui-sref="formulaire">Sign in</a>-->
-          <a href="" ng-click="$ctrl.logout()" ng-if="$ctrl.user">Disconnect</a>
-        </li>
-      </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
 
-
-<md-content layout-padding>
-  <div class="ext-content">
-    <ui-view>
-    </ui-view>
-  </div>
-</md-content>
+<ui-view>
+</ui-view>

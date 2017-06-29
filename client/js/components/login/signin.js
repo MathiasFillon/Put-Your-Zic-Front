@@ -6,7 +6,7 @@ export default {
 
   template: template,
 
-  controller: function (AuthService, $state, $mdToast, $window, CONSTANTS) {
+  controller: function (AuthService, $state, ngToast, $window, CONSTANTS) {
     'ngInject';
 
     this.signin = () => {
@@ -16,7 +16,7 @@ export default {
       }).catch((err) => {
         let message = err.data ? err.data.message || err.data : err;
         let toastContent = `Error : ${message} !`;
-        $mdToast.showSimple(toastContent);
+        ngToast.create(toastContent);
       });
     };
 
