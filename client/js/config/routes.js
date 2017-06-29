@@ -23,6 +23,12 @@ export default function ($stateProvider, $urlRouterProvider) {
       component: 'playlist'
     })
     .state({
+      name: 'player',
+      url: '/player',
+      publicRoute: false,
+      component: 'player'
+    })
+    .state({
       name: 'users',
       url: '/users',
       component: 'users'
