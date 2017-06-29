@@ -23,6 +23,12 @@ export default function ($stateProvider, $urlRouterProvider) {
       component: 'playlist'
     })
     .state({
+      name: 'player',
+      url: '/player',
+      publicRoute: false,
+      component: 'player'
+    })
+    .state({
       name: 'users',
       url: '/users',
       component: 'users'
@@ -47,11 +53,6 @@ export default function ($stateProvider, $urlRouterProvider) {
       url: '/formulaire',
       publicRoute: true,
       component: 'formulaire'
-    })
-    .state('accueil', {
-      url: '/accueil',
-      publicRoute: true,
-      component: 'accueil'
     })
     .state('login.signin', {
       url: '/signin',

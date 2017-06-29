@@ -17,3 +17,48 @@
     height: 100%;
 }
 // end responsive youtube iframe///
+
+.thumb {
+  width: 100%; // height: 24px;
+  // float: none;
+  // position: relative;
+  // top: 7px;
+}
+
+.progress div {
+    font-size: smaller;
+    background: lightgrey;
+    width: 0;
+}
+
+.progress {
+    margin-top: 10px;
+}
+
+.align-top {
+    align-self: flex-start;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+.align-bottom {
+    align-self: flex-start;
+    margin-top: 20px;
+}
+
+.media_upload {
+    padding: 5% 0;
+    word-wrap: break-word;
+}
+
+.flex {
+    display: flex;
+}
+
+.vertical-flex {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
