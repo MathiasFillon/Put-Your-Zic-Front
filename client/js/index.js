@@ -4,13 +4,13 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import messages from 'angular-messages';
 import css from 'angular-css';
-import ngToast from 'ng-toast';
 import ngSanitize from 'angular-sanitize';
 import animate from 'angular-animate';
 import 'youtube-iframe';
 import youtube from 'angular-youtube-embed';
 import 'ng-toast/dist/ngToast.min.js';
 import 'angular-local-storage';
+
 import 'jquery/dist/jquery.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';

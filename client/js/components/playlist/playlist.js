@@ -38,6 +38,7 @@ export default {
 
             this.createVideo()
             this.getVideos()
+
         };
 
         this.getIframeSrc = (src) => {
@@ -93,6 +94,7 @@ export default {
                 userId: this.currentUser._id
             }
             MediaService.createVideo(this.currentUser._id, this.media).then((res) => {
+
                 UsersService.updateMedia(this.currentUser, res._id).then((good) => {
                     ngToast.create("Media saved");
                     this.file = "";
@@ -104,19 +106,6 @@ export default {
                     this.media.rank = this.mediaList.length;
                     this.mediaList.push(this.media);
                 }).catch();
-            }).catch((err) => {
-                let message = err.data ? err.data.errmsg || err.data : err;
-                let toastContent = `Error: ${message} !`;
-                ngToast.create(toastContent);
-            });
-        }
-        this.createVideo = () => {
-            MediaService.createVideo({
-                titre: 'title test',
-                url: 'url video'
-            }).then((res) => {
-                ngToast.create("Media updated");
-                this.edition = false;
             }).catch((err) => {
                 let message = err.data ? err.data.errmsg || err.data : err;
                 let toastContent = `Error: ${message} !`;
