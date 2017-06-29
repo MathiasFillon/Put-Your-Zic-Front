@@ -7,7 +7,7 @@ export default function ($stateProvider, $urlRouterProvider) {
     .state({
       name: 'home',
       url: '/home',
-      publicRoute: false,
+      publicRoute: true,
       component: 'home'
     })
     .state({
@@ -24,6 +24,11 @@ export default function ($stateProvider, $urlRouterProvider) {
       url: '/signup',
       publicRoute: true,
       component: 'signup'
+    })
+    .state('formulaire', {
+      url: '/formulaire',
+      publicRoute: true,
+      component: 'formulaire'
     })
     .state('login.signin', {
       url: '/signin',
