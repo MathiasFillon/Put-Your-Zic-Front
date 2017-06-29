@@ -18,9 +18,25 @@ export default function ($stateProvider, $urlRouterProvider) {
     })
     .state({
       name: 'playlist',
-      url: '/playlist',
+      url: '/playlist/:id',
+      params: {
+        id: null,
+        theme: null,
+        titre: null
+      },
       publicRoute: false,
-      component: 'playlist'
+      component: 'playlist',
+      resolve: {
+        playlistId: function ($stateParams) {
+          return $stateParams.id;
+        },
+        playlist: function ($stateParams) {
+          return {
+            theme: $stateParams.theme,
+            titre: $stateParams.titre
+          };
+        }
+      }
     })
     .state({
       name: 'player',
@@ -72,8 +88,8 @@ export default function ($stateProvider, $urlRouterProvider) {
 
         if ($stateParams.token) {
           AuthService.setToken($stateParams.token).then((user) => {
-            $state.go('home');
-          })
+              $state.go('home');
+            })
             .catch((err) => {
               $state.go('home');
             });

@@ -9,10 +9,22 @@ export default function ($http, $q) {
 
   this.createVideo = (video) => {
     return $q((resolve, reject) => {
-      video.user = 1;
-      video.playlist = 3;
       console.log(video)
-      $http.post(PHP_MEDIA_URL + 'user/addmedia', video).then((response) => {
+      $http.get(`http://192.168.1.36/PutYourZick/postmedia.php?titre=${video.titre}&url=${video.url}&playlist=${video.playlist}&user=1`, video).then((response) => {
+        console.log(response)
+        console.log(response.data)
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  this.createPlaylist = (playlist) => {
+    return $q((resolve, reject) => {
+      console.log(playlist)
+      $http.get(`http://192.168.1.36/PutYourZick/postplaylist.php?titre=${playlist.titre}&url=${playlist.url}&theme=${playlist.theme}&user=1`).then((response) => {
         console.log(response)
         console.log(response.data)
         resolve(response.data);
@@ -26,7 +38,20 @@ export default function ($http, $q) {
 
   this.get = () => {
     return $q((resolve, reject) => {
-      $http.get(PHP_MEDIA_URL + 'getmedia').then((response) => {
+      $http.get('http://192.168.1.36/PutYourZick/getmedia.php').then((response) => {
+        console.log(response)
+        console.log(response.data)
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  this.getPlaylist = () => {
+    return $q((resolve, reject) => {
+      $http.get('http://192.168.1.36/PutYourZick/getplaylist.php').then((response) => {
         console.log(response)
         console.log(response.data)
         resolve(response.data);
