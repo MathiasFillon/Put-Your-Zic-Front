@@ -10,7 +10,7 @@ export default function ($http, $q) {
   this.createVideo = (video) => {
     return $q((resolve, reject) => {
       console.log(video)
-      $http.get(`http://192.168.1.36/PutYourZick/postmedia.php?titre=${video.titre}&url=${video.url}&playlist=1&user=1`, video).then((response) => {
+      $http.get(`http://192.168.1.36/PutYourZick/postmedia.php?titre=${video.titre}&url=${video.url}&playlist=${video.playlist}&user=1`, video).then((response) => {
         console.log(response)
         console.log(response.data)
         resolve(response.data);

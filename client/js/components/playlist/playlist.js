@@ -8,7 +8,7 @@ export default {
     template: template,
     css: styles,
     bindings: {
-
+        playlistId: '<'
     },
     controller: function (MediaService, ngToast, $state) {
         'ngInject';
@@ -37,7 +37,7 @@ export default {
 
 
             this.createVideo()
-            // this.getVideos()
+            this.getVideos()
 
         };
 
@@ -63,7 +63,13 @@ export default {
         this.getVideos = () => {
             MediaService.get().then((res) => {
                 ngToast.create("Media getted");
-                this.medias = res;
+                this.medias = [];
+                for(let vid of res){
+                    console.log(vid)
+                    if(vid.playlist_id == this.playlistId){
+                        this.medias.push(vid);
+                    }
+                }
                 console.log(this.medias)
             }).catch((err) => {
                 console.log(err)
@@ -93,6 +99,7 @@ export default {
             this.media = {
                 title: this.title,
                 url: this.content,
+                playlist: this.playlistId
             }
             MediaService.createVideo(this.media).then((res) => {
 

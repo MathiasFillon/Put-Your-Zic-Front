@@ -71,12 +71,32 @@
 </div>
 
 <div class="row">
-    <div ng-repeat="media in $ctrl.playlists | orderBy:'-createdAt' " class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="grid-image">
-            <div class="image">
-                <a ui-sref="playlists({id : media.id, userid: '{{$ctrl.currentUser.id}}'})"></a>
-                <img src="{{media.content}}" alt="" />
-            </div>
+    <div ng-repeat="media in $ctrl.playlist | orderBy:'-createdAt' " class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="grid-image" ui-sref="playlist({id : media.id, userid: 1})">
+                <div class="image" style="background-image:url({{media.url}})"><img src="{{media.url}}" alt="" />
+                    <p>{{media.titre}}</p>
+                    <p>{{media.theme}}</p>
+
+                </div>
         </div>
     </div>
 </div>
+
+<!--<div class="row">
+    <div ng-repeat="media in $ctrl.medias | orderBy:'-createdAt' " class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-toggle="modal"
+        data-target="#modalPhoto" ng-click="$ctrl.actualMedia(media)">
+        <div class="grid-image" ng-if="media.contentType == 'Photo'">
+            <div class="image" style="background-image:url({{media.content}})"><img src="{{media.content}}" alt="" /></div>
+        </div>
+        <div class="grid-image" ng-if="media.contentType == 'Video'">
+            <video class="image" src={{media.content}}>Ici la description alternative</video>
+            <img id="play-icon" src="{{$ctrl.play}}" alt="">
+        </div>
+        <div class="grid-image" ng-if="media.contentType == 'VideoYT'">
+            <div class="imgYT">
+                <img class="videoYT" src="http://img.youtube.com/vi/{{media.content}}/mqdefault.jpg" alt="">
+                <img id="play-icon" src="{{$ctrl.playYT}}" alt="">
+            </div>
+        </div>
+    </div>
+</div>-->
