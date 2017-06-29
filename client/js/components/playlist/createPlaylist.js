@@ -6,25 +6,25 @@ export default {
 
     template: template,
 
-    controller: function (createPlaylistService) {
+    controller: function (MediaService, $state, ngToast) {
         'ngInject';
 
-      this.submit = () => {
-        var reponse = {
-          title: this.title,
-          theme: this.theme,
-          
-        }
+        this.submit = () => {
+            var reponse = {
+                title: this.title,
+                theme: this.theme,
 
-       createPlaylistService.postPlaylist(reponse).then(() => {
-            $state.go('playlist');
-          })
-          .catch((err) => {
-            this.errorMessage = err.message;
-          });
-      };
-      
-      this.addPhotoUrl = () => {
+            }
+
+            createPlaylistService.postPlaylist(reponse).then(() => {
+                    $state.go('playlist');
+                })
+                .catch((err) => {
+                    this.errorMessage = err.message;
+                });
+        };
+
+        this.addPhotoUrl = () => {
             this.fileform.preview = this.fileform.url;
             this.content = this.fileform.preview;
             //TO DO : regex sur l'url d'entrée 
@@ -50,15 +50,16 @@ export default {
                 url: this.content,
             }
             MediaService.createPlaylist(this.media).then((res) => {
-                    ngToast.create("Media saved");
-                    this.file = "";
-                    this.fileform.title = "";
-                    this.fileform.legend = "";
-                    this.fileform.url = "";
-                    this.fileform.preview = "";
-                    this.fileUpload = false;
-                    this.media.rank = this.mediaList.length;
-                    this.mediaList.push(this.media);
+                ngToast.create("Media saved");
+                this.file = "";
+                this.fileform.title = "";
+                this.fileform.legend = "";
+                this.fileform.url = "";
+                this.fileform.preview = "";
+                this.fileUpload = false;
+                this.media.rank = this.mediaList.length;
+                this.mediaList.push(this.media);
+                $state.go('profile');
             }).catch((err) => {
                 let message = err.data ? err.data.errmsg || err.data : err;
                 let toastContent = `Error: ${message} !`;
@@ -66,5 +67,5 @@ export default {
             });
         }
     }
-    
-  };
+
+};

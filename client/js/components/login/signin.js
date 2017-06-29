@@ -12,7 +12,7 @@ export default {
     this.signin = () => {
       // Local authentication mode
       AuthService.login(this.user).then((user) => {
-        $state.go('users');
+        $state.go('profile');
       }).catch((err) => {
         let message = err.data ? err.data.message || err.data : err;
         let toastContent = `Error : ${message} !`;
