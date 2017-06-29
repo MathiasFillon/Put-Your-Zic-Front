@@ -1,6 +1,6 @@
 'use strict';
 
-import template from './accueil.html';
+import template from './home.html';
 
 export default {
 
