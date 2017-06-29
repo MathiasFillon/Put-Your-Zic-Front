@@ -7,7 +7,7 @@ import material from 'angular-material';
 import css from 'angular-css';
 import 'youtube-iframe';
 import youtube from 'angular-youtube-embed';
-
+import ngParallax from 'ng-parallax';
 
 
 import 'jquery/dist/jquery.js';
@@ -16,6 +16,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 import 'angular-material/angular-material.css';
 import 'mdi/css/materialdesignicons.css';
 import '../css/index.scss';
+;
 
 import components from './components';
 import services from './services';
@@ -28,7 +29,8 @@ let app = angular.module('meanApp', [
   css,
   components,
   services,
-  youtube
+  youtube,
+  ngParallax
 ]);
 
 app.constant('CONSTANTS', config.constants);
