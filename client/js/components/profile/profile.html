@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-xs-3">
+        <div class="avatar">
+            <img class="img-circle img-circle-custom img-responsive img-center img-center-artists seethrough" src="https://www.jeuxvideo-live.com/images/news/illustrations/avatar-2-repoussee-ea-2018-77863-carre.jpg"
+                alt="avatar">
+            <!--<img class="img-circle img-circle-custom img-responsive img-center img-center-artists seethrough" src="{{$ctrl.profileUser.avatar}}"
+                alt="">-->
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <p>{{$ctrl.profileUser.firstName}} {{$ctrl.profileUser.lastName}}</p>
+        <p>{{$ctrl.profileUser.description}}</p>
+    </div>
+</div>
+
+<button ng-if="$ctrl.myProfile" type="button" class="btn btn-default glyphicon glyphicon-pencil float-right" ui-sref="profileEdition"></button>
+
+<button id="test" type="button" class="btn btn-default glyphicon glyphicon-plus float-right" data-toggle="modal" data-target="#modalMedia"></button>
+<h3 class="center">My playlists</h3>
+
+<div class="row">
+    <div ng-repeat="media in $ctrl.playlists | orderBy:'-createdAt' " class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="grid-image">
+            <div class="image">
+                    <a ui-sref="playlists({id : media.id, userid: '{{$ctrl.currentUser.id}}'})"></a>
+                <img src="{{media.content}}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
