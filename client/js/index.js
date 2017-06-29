@@ -8,6 +8,7 @@ import ngSanitize from 'angular-sanitize';
 import animate from 'angular-animate';
 import 'youtube-iframe';
 import youtube from 'angular-youtube-embed';
+import ngParallax from 'ng-parallax';
 import 'ng-toast/dist/ngToast.min.js';
 import 'angular-local-storage';
 
@@ -15,6 +16,7 @@ import 'jquery/dist/jquery.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import '../css/index.scss';
+;
 
 import components from './components';
 import services from './services';
@@ -26,6 +28,7 @@ let app = angular.module('meanApp', [
   css,
   components,
   services,
+  ngParallax,
   "ngToast",
   ngSanitize,
   animate,
