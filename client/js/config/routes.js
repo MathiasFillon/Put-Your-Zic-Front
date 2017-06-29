@@ -48,11 +48,6 @@ export default function ($stateProvider, $urlRouterProvider) {
       publicRoute: true,
       component: 'formulaire'
     })
-    .state('accueil', {
-      url: '/accueil',
-      publicRoute: true,
-      component: 'accueil'
-    })
     .state('login.signin', {
       url: '/signin',
       publicRoute: true,
