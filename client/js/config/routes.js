@@ -7,13 +7,31 @@ export default function ($stateProvider, $urlRouterProvider) {
     .state({
       name: 'home',
       url: '/home',
-      publicRoute: false,
+      publicRoute: true,
       component: 'home'
+    })
+    .state({
+      name: 'profile',
+      url: '/profile',
+      publicRoute: false,
+      component: 'profile'
+    })
+    .state({
+      name: 'playlist',
+      url: '/playlist',
+      publicRoute: false,
+      component: 'playlist'
     })
     .state({
       name: 'users',
       url: '/users',
       component: 'users'
+    })
+    .state({
+      name: 'createPlaylist',
+      url: '/createPlaylist',
+      publicRoute: true,
+      component: 'createPlaylist'
     })
     .state('login', {
       url: '',
@@ -25,6 +43,16 @@ export default function ($stateProvider, $urlRouterProvider) {
       publicRoute: true,
       component: 'signup'
     })
+    .state('formulaire', {
+      url: '/formulaire',
+      publicRoute: true,
+      component: 'formulaire'
+    })
+    .state('accueil', {
+      url: '/accueil',
+      publicRoute: true,
+      component: 'accueil'
+    })
     .state('login.signin', {
       url: '/signin',
       publicRoute: true,
@@ -32,7 +60,7 @@ export default function ($stateProvider, $urlRouterProvider) {
     })
     .state('callback', {
       url: '/auth/callback/:token',
-      publicRoute: true,      
+      publicRoute: true,
       params: {
         code: null,
         status: null,
@@ -45,9 +73,9 @@ export default function ($stateProvider, $urlRouterProvider) {
           AuthService.setToken($stateParams.token).then((user) => {
             $state.go('home');
           })
-          .catch((err) => {
-            $state.go('home');
-          });
+            .catch((err) => {
+              $state.go('home');
+            });
         } else {
           $state.go('home');
         }

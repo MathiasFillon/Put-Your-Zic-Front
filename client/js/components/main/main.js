@@ -17,19 +17,18 @@ export default {
       $log.debug('TAB:' + this.selectedTab);
     });
 
-    this.$onInit = () => {
-      AuthService.getCurrent().then((user) => {
-        // Save the currently connected user if any
-        this.user = user;
-      })
-        .catch((err) => {
-          $log.error(err);
-          this.user = null;
-        });
-    };
+    // this.$onInit = () => {
+    //   AuthService.getCurrent().then((user) => {
+    //     // Save the currently connected user if any
+    //     this.user = user;
+    //   })
+    //     .catch((err) => {
+    //       $log.error(err);
+    //       this.user = null;
+    //     });
+    // };
 
     this.logout = () => {
-      // Disconnect and display home page
       AuthService.logout().then(() => {
         $state.go('home');
       });
@@ -45,6 +44,5 @@ export default {
         $mdToast.showSimple('Disconnected');
       }
     });
-  
   }
 }

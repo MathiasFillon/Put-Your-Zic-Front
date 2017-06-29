@@ -5,7 +5,8 @@ import uiRouter from 'angular-ui-router';
 import messages from 'angular-messages';
 import material from 'angular-material';
 import css from 'angular-css';
-
+import 'youtube-iframe';
+import youtube from 'angular-youtube-embed';
 
 
 
@@ -27,10 +28,22 @@ let app = angular.module('meanApp', [
   css,
   components,
   services,
+  youtube
 ]);
 
 app.constant('CONSTANTS', config.constants);
 app.config(config.routes);
 app.run(config.run);
+
+app.config(['$sceDelegateProvider', function ($sceDelegateProvider) {
+
+  //Allow to request YouTube videos
+  $sceDelegateProvider.resourceUrlWhitelist([
+    // Allow same origin resource loads.
+    'self',
+    // Allow loading from our assets domain. **.
+    'https://www.youtube.com/**'
+  ]);
+}]);
 
 export default app;
