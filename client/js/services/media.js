@@ -3,12 +3,12 @@
 export default function ($http, $q) {
   'ngInject';
 
-  const USERS_URL = '/api/users/';
-  const PHP_USERS_URL = 'http://192.168.1.12/wcs/hackathon/putyourzick/web/inscription'
+  const PHP_MEDIA_URL = 'http://192.168.1.12/wcs/hackathon/putyourzick/web/user/addmedia'
+  // const PHP_MEDIA_URL = 'http://192.168.1.36/www/PutYourZick/web/user/addmedia'
 
-  this.create = (user) => {
+  this.createVideo = (video) => {
     return $q((resolve, reject) => {
-      $http.post(USERS_URL, user).then((response) => {
+      $http.post(PHP_MEDIA_URL, video).then((response) => {
         resolve(response.data);
       })
       .catch((err) => {
