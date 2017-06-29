@@ -10,7 +10,7 @@ export default {
     bindings: {
 
     },
-    controller: function (MediaService) {
+    controller: function (MediaService, ngToast) {
         'ngInject';
 
         this.$onInit = () => {
@@ -64,7 +64,9 @@ export default {
             MediaService.get().then((res) => {
                 ngToast.create("Media getted");
                 this.medias = res;
+                console.log(this.medias)
             }).catch((err) => {
+                console.log(err)
                 let message = err.data ? err.data.errmsg || err.data : err;
                 let toastContent = `Error: ${message} !`;
                 ngToast.create(toastContent);

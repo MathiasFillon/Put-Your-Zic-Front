@@ -3,12 +3,9 @@
     <div ng-repeat="media in $ctrl.medias | orderBy:'-createdAt' " class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="youtube-player">
             <div class='embed-container'>
-<<<<<<< HEAD
                 <!--<iframe src="{{$ctrl.getIframeSrc(media.content)}}" frameborder="0" allowfullscreen></iframe>-->
                 <iframe src="{{media.url)}}" frameborder="0" allowfullscreen></iframe>
-=======
-                <iframe src="{{$ctrl.getIframeSrc(media.content)}}" frameborder="0" allowfullscreen></iframe>
->>>>>>> master
+                <p>{{media.url}}</p>
             </div>
         </div>
     </div>
