@@ -1,39 +1,37 @@
-<div class="containe-fluid">
-  <nav class="navbar navbar-default">
-    <div class="interne container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-          aria-expanded="false">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="interne container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
       </button>
-        <a class="navbar-brand" href="#"><img class="logo" src="logo.png" alt="logo" /></a>
-      </div>
+      <a class="navbar-brand" href="#"><img class="logo" src="logo.png" alt="logo" /></a>
+    </div>
 
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <form class="search navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button ui-sref="login.signup" type="submit" class="btn btn-default">Submit</button>
-        </form>
-        <div class="rigth">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a ui-sref="createPlaylist" >Create playlist</a></li>
-            <li><a ui-sref="profile">My profile</a></li>
-            <li>
-              <a ui-sref="login.signin" ng-if="!$ctrl.user">sign in</a>
-              <a href="" ng-click="$ctrl.logout()" ng-if="$ctrl.user">Disconnect</a>
-            </li>
-          </ul>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="search navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
         </div>
+        <button ui-sref="login.signup" type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <div class="rigth">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a ui-sref="createPlaylist" style="color: #F1ED5E;">Create playlist</a></li>
+          <li><a ui-sref="profile" style="color: #F1ED5E;">My profile</a></li>
+          <li>
+            <a ui-sref="login.signin" ng-if="!$ctrl.user" style="color: #F1ED5E;">sign in</a>
+            <a href="" ng-click="$ctrl.logout()" ng-if="$ctrl.user" style="color: #F1ED5E;">Disconnect</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </nav>
-</div>
+  </div>
+</nav>
+
 
 <!--<md-content layout-padding>-->
-  <div id = "test" >
-    <ui-view>
-    </ui-view>
-  </div>
+<div id="test">
+  <ui-view>
+  </ui-view>
+</div>
 <!--</md-content>-->
-
