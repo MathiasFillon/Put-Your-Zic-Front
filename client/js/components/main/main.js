@@ -29,7 +29,6 @@ export default {
     // };
 
     this.logout = () => {
-      // Disconnect and display home page
       AuthService.logout().then(() => {
         $state.go('home');
       });

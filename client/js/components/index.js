@@ -23,5 +23,4 @@ export default angular.module('appComponents', [])
   .component('signup', signupComponent)
   .component('formulaire', formulaireComponent)
   .component('accueil', accueilComponent)
-
   .name;
