@@ -4,10 +4,11 @@ export default function ($http, $q) {
   'ngInject';
 
   const USERS_URL = '/api/users/';
+  const PHP_USERS_URL = 'http://192.168.1.19/inscription'
 
   this.create = (user) => {
     return $q((resolve, reject) => {
-      $http.post(USERS_URL, user).then((response) => {
+      $http.post(PHP_USERS_URL, user).then((response) => {
         resolve(response.data);
       })
       .catch((err) => {
