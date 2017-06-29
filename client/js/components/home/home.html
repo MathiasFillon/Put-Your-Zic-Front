@@ -1,4 +1,59 @@
+<img src="animatedConcert.gif">
+<div data-ng-controller="VideosController">
+    <header>
+      <h1>Juke<strong>Tube</strong></h1>
+      <form id="search" data-ng-submit="$ctrl.search()">
+        <input id="query" name="q" type="text" placeholder="Search for a YouTube video" data-ng-model="query">
+        <input id="submit" type="image" src="search.png" alt="Search">
+      </form>
+      <nav>
+        <a id="play">{{ $ctrl.youtube.state }}</a>
+        <a id="pause">Pause</a>
+      </nav>
+    </header>
+    <div id="results">
+      <div class="video" data-ng-repeat="video in $ctrl.results" data-ng-click="$ctrl.queue(video.id, video.title)">
+        <img class="video-image" data-ng-src="{{ video.thumbnail }}">
+        <p class="video-title">{{ video.title }}</p>
+        <p class="video-author">{{ video.author }}</p>
+        <p class="video-description">{{ video.description }}</p>
+      </div>
+    </div>
+    <div id="player">
+      <div id="placeholder"></div>
+    </div>
+    <div id="playlist">
+      <p id="current">{{ $ctrl.youtube.videoTitle }}</p>
+      <ol id="upcoming" data-ng-show="$ctrl.playlist">
+        <li data-ng-repeat="video in $ctrl.upcoming">
+          <p class="item-delete" data-ng-click="$ctrl.delete('upcoming', video.id)">delete</p>
+          <p class="item-title" data-ng-click="$ctrl.launch(video.id, video.title)">{{video.title}}</p>
+        </li>
+      </ol>
+      <ol id="history" data-ng-hide="$ctrl.playlist">
+        <li data-ng-repeat="video in $ctrl.history">
+          <p class="item-delete" data-ng-click="$ctrl.delete('history', video.id)">delete</p>
+          <p class="item-title" data-ng-click="$ctrl.queue(video.id, video.title)">{{video.title}}</p>
+        </li>
+      </ol>
+      <p id="tabs">
+        <a ng-class="{on:$ctrl.playlist}" data-ng-click="$ctrl.tabulate(true)">Upcoming</a>
+        <a ng-class="{on:!$ctrl.playlist}" data-ng-click="$ctrl.tabulate(false)">History</a>
+      </p>
+    </div>
+    <footer>
+      <em>Concept &amp; Design: <a href="http://jgthms.com">J. Thomas</a></em>
+      Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/jgthms/juketube">GitHub</a>.
+    </footer>
+    <script src="angular.min.js"></script>
+    <script src="angular-local-storage.js"></script>
+    <script src="app.js"></script>
+  </div>
+
+
+
 <!--<img class="gif" src="animatedConcert.gif">-->
+
 
 <div class="gif"></div>
 
