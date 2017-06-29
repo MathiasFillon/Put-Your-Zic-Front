@@ -8,7 +8,7 @@ export default {
   template: template,
   css: styles,
 
-  controller: function (AuthService, $state, $transitions, $log, $mdToast, $rootScope, CONSTANTS) {
+  controller: function (AuthService, $state, $transitions, $log, ngToast, $rootScope, CONSTANTS) {
     'ngInject';
 
     $transitions.onSuccess({}, (transition) => {
@@ -39,9 +39,9 @@ export default {
       // Save the currently connected user and display the according message
       this.user = user;
       if (user) {
-        $mdToast.showSimple(`Welcome ${user.firstName} !`);
+        ngToast.create(`Welcome ${user.firstName} !`);
       } else {
-        $mdToast.showSimple('Disconnected');
+        ngToast.create('Disconnected');
       }
     });
   }
