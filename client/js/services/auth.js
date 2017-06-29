@@ -9,16 +9,16 @@ export default function ($http, $q, $timeout, $cookies, $rootScope, CONSTANTS) {
     return $q((resolve, reject) => {
       // Let server authenticate the given email/password
       $http.post(CONSTANTS.authUrl, credential).then((res) => {
-        return this.saveToken(res.data.token);
-      })
-      .then((user) => {
-        this.currentUser = user;
-        resolve(this.currentUser);
-      })
-      .catch((err) => {
-        this.removeToken();
-        reject(err);
-      });
+          return this.saveToken(res.data.token);
+        })
+        .then((user) => {
+          this.currentUser = user;
+          resolve(this.currentUser);
+        })
+        .catch((err) => {
+          this.removeToken();
+          reject(err);
+        });
     });
   };
 
@@ -43,13 +43,13 @@ export default function ($http, $q, $timeout, $cookies, $rootScope, CONSTANTS) {
       }
       // Get user from saved token
       this._decodePayload(token.split('.')[1]).then((payload) => {
-        this.currentUser = payload;
-        resolve(payload);
-      })
-      .catch((err) => {
-        this.removeToken();
-        reject(err);
-      });
+          this.currentUser = payload;
+          resolve(payload);
+        })
+        .catch((err) => {
+          this.removeToken();
+          reject(err);
+        });
     });
   };
 
@@ -57,19 +57,24 @@ export default function ($http, $q, $timeout, $cookies, $rootScope, CONSTANTS) {
     return $q((resolve, reject) => {
       // Decode and save the received token
       this.saveToken(token).then((payload) => {
-        // Store the decoded user info
-        this.currentUser = payload;
-        resolve(payload);
-      })
-      .catch((err) => {
-        this.removeToken();
-        reject(err);
-      });
+          // Store the decoded user info
+          this.currentUser = payload;
+          resolve(payload);
+        })
+        .catch((err) => {
+          this.removeToken();
+          reject(err);
+        });
     });
   };
 
   this.saveToken = (token) => {
     return $q((resolve, reject) => {
+      // $http.defaults.headers.common.Authorization = 'Bearer ' + token;
+      // $rootScope.$broadcast(CONSTANTS.authEvent, token);
+      // $cookies.put(CONSTANTS.authCookie, token);
+      // resolve(token);
+      
       // Decode token payload before saving it into the cookie
       this._decodePayload(token.split('.')[1]).then((payload) => {
         // Add jwt token to auth header for all requests made by the $http service

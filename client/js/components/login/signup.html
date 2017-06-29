@@ -9,16 +9,9 @@
   <md-content class="signup md-whiteframe-z1">
     <form name="form" method="post" ng-submit="$ctrl.signup()" class="col s12" novalidate>
       <md-input-container class="md-block">
-        <label>Last name</label>
-        <input required md-no-asterisk name="lastName" ng-model="$ctrl.user.lastName">
-        <div ng-messages="form.lastName.$error">
-          <div ng-message="required">This field is required.</div>
-        </div>
-      </md-input-container>
-      <md-input-container class="md-block">
-        <label>First name</label>
-        <input required md-no-asterisk name="firstName" ng-model="$ctrl.user.firstName">
-        <div ng-messages="form.firstName.$error">
+        <label>Pseudo</label>
+        <input required md-no-asterisk name="pseudo" ng-model="$ctrl.user.pseudo">
+        <div ng-messages="form.pseudo.$error">
           <div ng-message="required">This field is required.</div>
         </div>
       </md-input-container>
