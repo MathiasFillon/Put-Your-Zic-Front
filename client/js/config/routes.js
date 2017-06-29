@@ -20,13 +20,21 @@ export default function ($stateProvider, $urlRouterProvider) {
       name: 'playlist',
       url: '/playlist/:id',
       params: {
-        id: null
+        id: null,
+        theme: null,
+        titre: null
       },
       publicRoute: false,
       component: 'playlist',
       resolve: {
         playlistId: function ($stateParams) {
           return $stateParams.id;
+        },
+        playlist: function ($stateParams) {
+          return {
+            theme: $stateParams.theme,
+            titre: $stateParams.titre
+          };
         }
       }
     })

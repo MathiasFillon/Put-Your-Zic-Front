@@ -9,20 +9,45 @@
           et par personne, seulement de la musique tibétaine</li>
       </ul>
 
-      <div class="form-group">
-        <label for="titre">Titre de votre playlist</label>
-        <input ng-model="$ctrl.title" type="text" class="form-control" id="title" placeholder="title">
-      </div>
+      <form name="myForm1" ng-submit="$ctrl.savePlaylist()" novalidate>
+        <div class="modal-body">
 
-      <div class="form-group">
-        <label for="titre">Thème de votre playlist</label>
-        <input ng-model="$ctrl.theme" type="text" class="form-control" id="theme" placeholder="theme">
-      </div>
+          <label for="url">Image de fond de la playlist (url)</label>
+          <input class="form-control" ng-model="$ctrl.fileform.url" type="url" name="url" required>
+          <div ng-messages="myForm1.url.$error" ng-show="myForm1.url.$touched">
+            <div ng-message="required">*This field is required.</div>
+          </div>
 
-      <div class="col-md-offset-4 col-md-4">
-        <button ui-sref="home" class="btn btn-primary">Home</button>
-        <button ng-click="$ctrl.submit($ctrl.playlist)" class="btn btn-primary">valider</button>
-      </div>
+
+          <div class="media_upload">
+            <div class="row">
+              <div class="flex">
+
+                <div class="col-sm-6 vertical-flex">
+                  <button type="button" ng-click="$ctrl.addPhotoUrl()" class="btn btn-default align-bottom" ng-disabled="!myForm1.url.$valid">Add</button>
+                </div>
+
+                <div class="col-sm-5">
+                  <img class="thumb" src="{{$ctrl.content}}">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <label for="title">Titre de votre playlist</label>
+          <input class="form-control" ng-model="$ctrl.fileform.title" type="text" name="title" required>
+          <label for="title">Thème de votre playlist</label>
+          <input class="form-control" ng-model="$ctrl.fileform.theme" type="text" name="title" required>
+
+
+        </div>
+        <div class="col-md-offset-4 col-md-4">
+          <button ui-sref="home" type="button" class="btn btn-default">Home</button>
+          <button type="submit" class="btn btn-default btn-prev" ng-disabled="!myForm1.$valid">Submit</button>
+        </div>
+      </form>
+
     </div>
 
   </div>
