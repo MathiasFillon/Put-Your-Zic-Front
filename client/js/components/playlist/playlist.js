@@ -19,6 +19,9 @@ export default {
 
         };
 
+        this.getIframeSrc = (src) => {
+            return 'https://www.youtube.com/embed/' + src;
+        };
 
     }
 };
