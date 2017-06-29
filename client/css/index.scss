@@ -23,6 +23,7 @@ html, body {
   background-color: rgba(255, 255, 255, 0.7);
   font-family: 'Lobster', cursive;
   font-size: 20px;
+  text-align: center;
  }
 #texte2 {
   background-color: rgba(255, 255, 255, 0.7);
@@ -42,7 +43,10 @@ html, body {
   margin: 0px;
 }
 
-
 .flotte {
 float:left;
+}
+
+.dynamique{
+  font-size: 40px;
 }
