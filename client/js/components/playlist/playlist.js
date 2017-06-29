@@ -38,9 +38,12 @@ export default {
             return 'https://www.youtube.com/embed/' + src;
         };
 
-        
+
         this.createVideo = () => {
-            MediaService.createVideo({title:'title test', url:'url video'}).then((res) => {
+            MediaService.createVideo({
+                title: 'title test',
+                url: 'url video'
+            }).then((res) => {
                 ngToast.create("Media updated");
                 this.edition = false;
             }).catch((err) => {
@@ -50,6 +53,41 @@ export default {
             });
         }
 
+        // Extract videoYT id from url
+        this.addYTUrl = () => {
+            this.fileform.preview = this.fileform.url.replace(/https:\/\/(www\.)?youtu(\.)?be(\.com)?\/(watch\?v=)?/, '');
+            this.content = this.fileform.preview;
+            this.fileUpload = true;
+
+            //TO DO : regex sur l'url d'entrée 
+            //to do optional : verify if this url YT exist
+        }
+
+        this.saveMedia = () => {
+
+            this.media = {
+                title: this.fileform.title,
+                url: this.content,
+                userId: this.currentUser._id
+            }
+            MediaService.create(this.currentUser._id, this.media).then((res) => {
+                UsersService.updateMedia(this.currentUser, res._id).then((good) => {
+                    ngToast.create("Media saved");
+                    this.file = "";
+                    this.fileform.title = "";
+                    this.fileform.legend = "";
+                    this.fileform.url = "";
+                    this.fileform.preview = "";
+                    this.fileUpload = false;
+                    this.media.rank = this.mediaList.length;
+                    this.mediaList.push(this.media);
+                }).catch();
+            }).catch((err) => {
+                let message = err.data ? err.data.errmsg || err.data : err;
+                let toastContent = `Error: ${message} !`;
+                ngToast.create(toastContent);
+            });
+        }
 
     }
 };
