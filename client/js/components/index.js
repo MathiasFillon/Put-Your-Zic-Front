@@ -20,5 +20,5 @@ export default angular.module('appComponents', [])
   .component('signin', signinComponent)
   .component('signup', signupComponent)
   .component('acceuil', acceuilComponent)
-  .component('createPlaylistComponent', createPlaylistComponent)
+  .component('createPlaylist', createPlaylistComponent)
   .name;

@@ -15,6 +15,11 @@ export default function ($stateProvider, $urlRouterProvider) {
       url: '/users',
       component: 'users'
     })
+  .state({
+      name: 'createPlaylist',
+      url: '/createPlaylist',
+      component: 'createPlaylist'
+    })
     .state('login', {
       url: '',
       abstract: true,
