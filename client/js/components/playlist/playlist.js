@@ -10,7 +10,7 @@ export default {
     bindings: {
 
     },
-    controller: function (MediaService, ngToast) {
+    controller: function (MediaService, ngToast, $state) {
         'ngInject';
 
         this.$onInit = () => {
@@ -37,7 +37,7 @@ export default {
 
 
             this.createVideo()
-            this.getVideos()
+            // this.getVideos()
 
         };
 
@@ -86,28 +86,24 @@ export default {
         this.saveMedia = () => {
 
             // get title video from youtube api
-            $.getJSON('https://www.googleapis.com/youtube/v3/videos?id='+this.content+'&key=AIzaSyCimJ96y7KN6ADZ0VBpjCCvJUunb2PUpnA&part=snippet&callback=?', function (data) {
+            $.getJSON('https://www.googleapis.com/youtube/v3/videos?id=' + this.content + '&key=AIzaSyCimJ96y7KN6ADZ0VBpjCCvJUunb2PUpnA&part=snippet&callback=?', function (data) {
                 this.title = data.items[0].snippet.title;
             });
-
+            console.log(this.title)
             this.media = {
                 title: this.title,
                 url: this.content,
-                userId: this.currentUser._id
             }
-            MediaService.createVideo(this.currentUser._id, this.media).then((res) => {
+            MediaService.createVideo(this.media).then((res) => {
 
-                UsersService.updateMedia(this.currentUser, res._id).then((good) => {
-                    ngToast.create("Media saved");
-                    this.file = "";
-                    this.fileform.title = "";
-                    this.fileform.legend = "";
-                    this.fileform.url = "";
-                    this.fileform.preview = "";
-                    this.fileUpload = false;
-                    this.media.rank = this.mediaList.length;
-                    this.mediaList.push(this.media);
-                }).catch();
+                ngToast.create("Media saved");
+                this.file = "";
+                this.fileform.title = "";
+                this.fileform.legend = "";
+                this.fileform.url = "";
+                this.fileform.preview = "";
+                this.fileUpload = false;
+                $state.go('playlist');
             }).catch((err) => {
                 let message = err.data ? err.data.errmsg || err.data : err;
                 let toastContent = `Error: ${message} !`;
